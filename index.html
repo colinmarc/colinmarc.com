@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Colin Marc</title>
+    <style>
+      body {
+        margin: 0 2em;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: .8em;
+      }
+
+      ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      h1 {
+        font-size: 4em;
+        margin-bottom: 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        margin-bottom: 0;
+      }
+
+      #container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      #me {
+        width: 100%;
+        max-width: 300px;
+        vertical-align: bottom;
+      }
+
+      #left {
+        margin-top: -2em;
+        padding: 0 25%;
+        border-bottom: .5em solid black;
+        box-shadow: 0 .55em 5px -5px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      #right {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin-bottom: 2em;
+        text-align: center;
+      }
+
+      @media screen and (min-width: 900px) {
+        #container {
+          flex-direction: row;
+          border-bottom: .5em solid black;
+          box-shadow: 0 .55em 5px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        #me {
+          width: 100%;
+          max-width: none;
+        }
+
+        #left {
+          width: 50%;
+          margin: 0;
+          padding: 0;
+          margin-right: 2em;
+          border-bottom: none;
+          box-shadow: none;
+        }
+
+
+        #right {
+          margin-top: 5em;
+          margin-bottom: 0;
+          text-align: inherit;
+        }
+      }
+
+      a,
+      a:link,
+      a:visited,
+      a:hover,
+      a:active {
+          color: teal;
+          text-decoration: inherit;
+          font-weight: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="left">
+        <img id="me" src="me_bw.jpg">
+      </div>
+      <div id="right">
+        <h1>Colin Marc</h1>
+
+        <div>
+          <h2>contact</h2>
+          <ul>
+            <li><a href="mailto:colinmarc@gmail.com?Subject=HI">colinmarc@gmail.com</a></li>
+            <li><a href="https://twitter.com/colinmarc">twitter</a></li>
+            <li><a href="https://github.com/colinmarc">github</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2>words</h2>
+          <ul>
+            <li><a href="/words.html">Words</a> - a poem</li>
+            <li><a href="http://philome.la/colinmarc/my-job">my job</a> - a twine poem</li>
+            <li><a href="/ink.html">She Must Accept Some Swirling Ink</a> - a poem</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2>code</h2>
+          <ul>
+            <li><a href="http://sequins.io">sequins</a> - a key/value store for storing static batch data</li>
+            <li><a href="http://hg.python.org/cpython/rev/2514a4e2b3ce">python issue #14204</a> - adding NPN support to cpython</li>
+            <li><a href="http://philome.la">philome.la</a> - free twine hosting</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2>friends</h2>
+          <ul>
+            <li>developer at <a href="https://stripe.com">Stripe</a> - May 2012 to December 2016</li>
+            <li><a href="https://www.recurse.com/">Recurse Center</a> Spring 2012</li>
+            <li>various contract work since forever</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
