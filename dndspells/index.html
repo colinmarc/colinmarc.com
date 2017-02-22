@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>D&amp;D Spellbook Generator</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="mustache.min.js"></script>
+    <script type="text/javascript" src="stupidtable.min.js"></script>
+    <script type="text/javascript" src="bitset.min.js"></script>
+    <script type="text/javascript" src="spells.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    </script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        margin: 0;
+        padding: 0;
+      }
+
+      #container {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 0;
+        min-height: 100vh;
+        padding: 2em;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        margin-bottom: 0;
+      }
+
+      a,
+      a:link,
+      a:visited,
+      a:hover,
+      a:active {
+          color: teal;
+          text-decoration: inherit;
+          font-weight: inherit;
+      }
+
+      table {
+        font-size: .8em;
+        text-align: left;
+        border-spacing: 2px;
+        border-color: gray;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 1em;
+        table-layout: fixed;
+      }
+
+      thead > tr {
+        background: lightgray;
+      }
+
+      tr {
+        border-bottom: 1px solid gray;
+      }
+
+      .levelcol {
+        width: 3em;
+      }
+
+      .namecol {
+        width: 20em;
+      }
+
+      .componentcol {
+        width: 4em;
+      }
+
+      .schoolcol {
+        width: 12em;
+      }
+
+      .sourcecol {
+        width: 5em;
+      }
+
+      td, th {
+        padding: .2em;
+      }
+
+      th.sorting-asc:after {
+          content: "  \2191";
+      }
+
+      th.sorting-desc:after {
+          content: " \2193";
+      }
+
+      #searchtable th {
+        cursor: pointer;
+      }
+
+      .right {
+        padding: 0 1em;
+        width: 100%;
+        min-width: 35em;
+      }
+
+      #filters, #presets, #morerows, #selectinstructions {
+        width: 100%;
+      }
+
+      #morerows, #selectinstructions {
+        font-size: .8em;
+        font-style: italic;
+        padding-top: .5em;
+      }
+
+      .filtercat {
+        padding: .35em 0;
+        font-size: .8em;
+      }
+
+      .filterbutton {
+        cursor: pointer;
+        padding: .05em .1em;
+        -webkit-border-radius: .5em;
+        -moz-border-radius: .5em;
+        border-radius: .5em;
+      }
+
+      .filterbutton.selected {
+        background: teal;
+        color: white;
+      }
+
+      #filterinput {
+        width: 50%;
+      }
+
+      .spell {
+        cursor: pointer;
+      }
+
+      .spell:hover {
+        background-color: lightgray;
+      }
+
+      #floater {
+        position: relative;
+        overflow: hidden;
+        width: 40em;
+        background: white;
+        padding: .5em;
+        font-size: .8em;
+        border: 1px solid gray;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      #floater > h2 {
+        width: 100%;
+        font-size: 1.2em;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>D&amp;D 5e Spellbook Generator</h1>
+      <h2>Spellbook</h2>
+
+      <!-- <div id="presets" class="filtercat">
+        <b>Presets:</b><br/>
+
+        Druid:
+        <a class="filterbutton">0</a>
+        <a class="filterbutton">1</a>
+        <a class="filterbutton">2</a>
+        <a class="filterbutton">3</a>
+        <a class="filterbutton">4</a>
+        <a class="filterbutton">5</a>
+        <a class="filterbutton">6</a>
+        <a class="filterbutton">7</a>
+        <a class="filterbutton">8</a>
+        <a class="filterbutton">9</a><br/>
+
+        Cleric:
+        <a class="filterbutton">0</a>
+        <a class="filterbutton">1</a>
+        <a class="filterbutton">2</a>
+        <a class="filterbutton">3</a>
+        <a class="filterbutton">4</a>
+        <a class="filterbutton">5</a>
+        <a class="filterbutton">6</a>
+        <a class="filterbutton">7</a>
+        <a class="filterbutton">8</a>
+        <a class="filterbutton">9</a><br/>
+
+        Paladin:
+        <a class="filterbutton">0</a>
+        <a class="filterbutton">1</a>
+        <a class="filterbutton">2</a>
+        <a class="filterbutton">3</a>
+        <a class="filterbutton">4</a>
+        <a class="filterbutton">5</a>
+        <a class="filterbutton">6</a>
+        <a class="filterbutton">7</a>
+        <a class="filterbutton">8</a>
+        <a class="filterbutton">9</a>
+      </div> -->
+      <div id="filters">
+      <div class="filtercat">
+        <a id="emptyspellbook" class="filterbutton">Empty Spellbook</a><br/>
+      </div>
+      <div class="filtercat">
+        <a id="generate" class="filterbutton" target="_blank">Generate! (opens in new window)</a><br/>
+      </div>
+      <table id="selectedtable">
+        <thead>
+          <tr>
+            <th class="levelcol">Lvl</th>
+            <th class="namecol">Name</th>
+            <th class="classcol">List</th>
+            <th class="schoolcol">School</th>
+            <th class="componentcol">Comp.</th>
+            <th class="sourcecol">Source</th>
+          </tr>
+        </thead>
+        <tbody id="selectedtablebody">
+        </tbody>
+      </table>
+      <div id="selectinstructions">
+        No spells selected! Click spells below to add them.
+      </div>
+      <h2>Find Spells</h2>
+        <div class="filtercat">
+          <a id="clearfilters" class="filterbutton">Reset filters</a>
+        </div>
+        <div class="filtercat">
+          <b>Source:</b> (<a id="clearsources" class="filterbutton">clear</a>)
+          <a id="filterphb" class="filterbutton filtersource selected">PHB</a>
+          <a id="filtereepc" class="filterbutton filtersource">EEPC</a>
+          <a id="filterscag" class="filterbutton filtersource">SCAG</a>
+          <a id="filteruatobm" class="filterbutton filtersource">UA</a>
+          <a id="filtertrotspells" class="filterbutton filtersource">TROT</a>
+        </div>
+        <div class="filtercat">
+          <b>Spell List:</b> (<a id="clearlists" class="filterbutton">clear</a>)<br/>
+
+          Class:
+          <a id="filterbard" class="filterbutton filterclass">Bard</a>
+          <a id="filtercleric" class="filterbutton filterclass">Cleric</a>
+          <a id="filterdruid" class="filterbutton filterclass">Druid</a>
+          <a id="filterpaladin" class="filterbutton filterclass">Paladin</a>
+          <a id="filterranger" class="filterbutton filterclass">Ranger</a>
+          <a id="filtersorcerer" class="filterbutton filterclass">Sorcerer</a>
+          <a id="filterwizard" class="filterbutton filterclass">Wizard</a>
+          <a id="filterwarlock" class="filterbutton filterclass">Warlock</a>
+          <a id="filterritualcaster" class="filterbutton filterclass">Ritual Caster</a>
+          <br/>
+
+          Cleric Domain:
+          <a id="filterknowledge" class="filterbutton filterdomain">Knowledge</a>
+          <a id="filterlife" class="filterbutton filterdomain">Life</a>
+          <a id="filterlight" class="filterbutton filterdomain">Light</a>
+          <a id="filternature" class="filterbutton filterdomain">Nature</a>
+          <a id="filtertempest" class="filterbutton filterdomain">Tempest</a>
+          <a id="filtertrickery" class="filterbutton filterdomain">Trickery</a>
+          <a id="filterwar" class="filterbutton filterdomain">War</a>
+          <br/>
+
+          Druid Circle:
+          <a id="filterarctic" class="filterbutton filtercircle">Arctic</a>
+          <a id="filtercoast" class="filterbutton filtercircle">Coast</a>
+          <a id="filterdesert" class="filterbutton filtercircle">Desert</a>
+          <a id="filterforest" class="filterbutton filtercircle">Forest</a>
+          <a id="filtergrassland" class="filterbutton filtercircle">Grassland</a>
+          <a id="filtermountain" class="filterbutton filtercircle">Mountain</a>
+          <a id="filterswamp" class="filterbutton filtercircle">Swamp</a>
+          <a id="filterunderdark" class="filterbutton filtercircle">Underdark</a>
+          <br/>
+
+          Paladin Oaths:
+          <a id="filterancients" class="filterbutton filteroath">Ancients</a>
+          <a id="filterdevotion" class="filterbutton filteroath">Devotion</a>
+          <a id="filtervengeance" class="filterbutton filteroath">Vengeance</a>
+          <br/>
+
+          Warlock Patrons:
+          <a id="filterarchfey" class="filterbutton filterpatron">Archfey</a>
+          <a id="filterfiend" class="filterbutton filterpatron">Fiend</a>
+          <a id="filtergreatoldone" class="filterbutton filterpatron">Great Old One</a>
+        </div>
+        <div class="filtercat">
+          <b>School:</b> (<a id="clearschools" class="filterbutton filterschool">clear</a>)
+          <a id="filterabjuration" class="filterbutton filterschool">Abjuration</a>
+          <a id="filterconjuration" class="filterbutton filterschool">Conjuration</a>
+          <a id="filterdivination" class="filterbutton filterschool">Divination</a>
+          <a id="filterillusion" class="filterbutton filterschool">Illusion</a>
+          <a id="filterenchantment" class="filterbutton filterschool">Enchantment</a>
+          <a id="filterevocation" class="filterbutton filterschool">Evocation</a>
+          <a id="filternecromancy" class="filterbutton filterschool">Necromancy</a>
+          <a id="filtertransmutation" class="filterbutton filterschool">Transmutation</a>
+        </div>
+        <div class="filtercat">
+          <b>Level:</b> (<a id="clearlevels" class="filterbutton">clear</a>)
+          <a id="filterlevel0" class="filterbutton filterlevel">0</a>
+          <a id="filterlevel1" class="filterbutton filterlevel">1</a>
+          <a id="filterlevel2" class="filterbutton filterlevel">2</a>
+          <a id="filterlevel3" class="filterbutton filterlevel">3</a>
+          <a id="filterlevel4" class="filterbutton filterlevel">4</a>
+          <a id="filterlevel5" class="filterbutton filterlevel">5</a>
+          <a id="filterlevel6" class="filterbutton filterlevel">6</a>
+          <a id="filterlevel7" class="filterbutton filterlevel">7</a>
+          <a id="filterlevel8" class="filterbutton filterlevel">8</a>
+          <a id="filterlevel9" class="filterbutton filterlevel">9</a>
+        </div>
+        <div class="filtercat">
+          <b>Search:</b> (<a id="clearsearch" class="filterbutton">clear</a>)
+          <input type="text" id="searchinput"/>
+        </div>
+      </div>
+      <table id="searchtable">
+        <thead>
+          <tr>
+          <th class="levelcol" data-sort="int">Lvl</th>
+          <th class="namecol" id="startsorted" data-sort="string">Name</th>
+          <th class="classcol" data-sort="string">List</th>
+          <th class="schoolcol" data-sort="string">School</th>
+          <th class="componentcol" data-sort="string">Comp.</th>
+          <th class="sourcecol" data-sort="string">Source</th>
+          </tr>
+        </thead>
+        <tbody id="searchtablebody">
+        </tbody>
+      </table>
+      <div id="morerows"></div>
+      <div id="floater" style="display: none">
+      </div>
+    </div>
+  </body>
+</html>
