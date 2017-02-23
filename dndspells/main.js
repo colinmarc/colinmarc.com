@@ -92,7 +92,7 @@ $(document).ready(function() {
           sp = $row.data('sp');
 
       if (filterSpell(sp)) {
-        if (numSelected < 50)
+        if (numSelected < 100)
           $row.show();
         else
           $row.hide();
@@ -103,8 +103,8 @@ $(document).ready(function() {
       }
     }
 
-    if (numSelected > 50) {
-      var remaining = numSelected - 50;
+    if (numSelected > 100) {
+      var remaining = numSelected - 100;
       $moreRows.html(`${remaining} more...`);
       $moreRows.show();
     } else {
@@ -124,7 +124,7 @@ $(document).ready(function() {
     var $row = $(Mustache.render(searchSpellTemplate, sp));
     $row.data('sp', sp);
 
-    if (i >= 50) {
+    if (i >= 100) {
       $row.hide();
     }
 
