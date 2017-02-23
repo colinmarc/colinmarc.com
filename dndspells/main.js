@@ -134,8 +134,6 @@ $(document).ready(function() {
   $searchTable.stupidtable();
   $('#startsorted').stupidsort();
 
-  // TODO: load from query string
-
   $searchTable.on('aftertablesort', function() { refilter(); });
   refilter();
 
