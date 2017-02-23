@@ -139,8 +139,11 @@ def process(spell)
   sp['verbal'] = comp.include?('V')
   sp['material'] = comp.include?('M')
   sp['somatic'] = comp.include?('S')
-  sp['material_desc'] = material.gsub(/\.\z/, '') if material
-  sp['material_cost'] = material.include?('gp') if material
+
+  if material
+    sp['material_desc'] = material.gsub(/\.\z/, '').gsub(/^\w{1}/) { |m| m.downcase }
+    sp['material_cost'] = material.include?('gp')
+  end
 
   src, _, page = sp.delete('page').rpartition(' ')
   sp['source'] = src.upcase
