@@ -5,7 +5,7 @@ var template = `
   <div class="type">{{type}}</div>
   <b>Casting Time:</b> {{casting_time}}<br/>
   <b>Range:</b> {{range}}<br/>
-  <b>Components:</b> {{component_desc}}<br/>
+  <b>Components:</b> {{component_desc}}{{#material_cost}} ({{material_desc}}){{/material_cost}}<br/>
   <b>Duration:</b> {{duration}}<br/>
   {{{desc}}}
   {{#higher_level}}
