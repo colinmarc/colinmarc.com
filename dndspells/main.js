@@ -220,6 +220,7 @@ $(document).ready(function() {
   var emptySpells = function() {
     $selectedTableBody.empty();
     selectedSpells = new Set();
+    selectedSpellsBitSet = new BitSet();
     refilter();
 
     $selectInstructions.show();
