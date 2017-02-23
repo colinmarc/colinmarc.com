@@ -141,9 +141,11 @@ $(document).ready(function() {
   var $floater = $('#floater');
   $(document).on('mousemove', function(e){
     var x = e.pageX + 5,
-        y = e.pageY + 5;
+        y = e.pageY + 5,
+        floaterHeight = $floater.height(),
+        documentHeight = $(document).height();
 
-    if (y + $floater.height() > $(document).height())
+    if (y + floaterHeight > $(document).height() && floaterHeight < documentHeight)
       y = e.pageY - 15 - $floater.height();
 
     $floater.css({
