@@ -30,9 +30,9 @@ spellbook.sort(function(a, b) {
 
 for (let sp of spellbook) {
   if (sp.level === 0)
-    sp.type = `${sp.school} Cantrip`
+    sp.type = `${sp.school} cantrip`
   else
-    sp.type = `${sp.level_desc} ${sp.school}`
+    sp.type = `${sp.level_desc} ${sp.school.toLowerCase()}`
 }
 
 window.onload = function () {
