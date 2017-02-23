@@ -146,6 +146,14 @@ def process(spell)
   sp['source'] = src.upcase
   sp['page'] = page.to_i
 
+  # Change hyphen bullets to li's.
+  if sp['desc'] =~ /<p>- /
+    desc = sp['desc'].gsub!(/<p>- (.+?)<\/p>/, '<li>\1</li>')
+    desc = desc.insert(desc.index('<li>'), '<ul>')
+    desc = desc.insert(desc.rindex('</li>')+5, '</ul>')
+    sp['desc'] = desc
+  end
+
   sp
 end
 
