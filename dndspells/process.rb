@@ -129,6 +129,7 @@ def process(spell)
 
   sp['ritual'] = (sp['ritual'] == "yes")
   sp['concentration'] = (sp['concentration'] == "yes")
+  sp['duration'] = "Concentration, " + sp['duration'].downcase if sp['concentration']
 
   sp['range_desc'] = sp['range']
   sp['range'] = sp['range_desc']
