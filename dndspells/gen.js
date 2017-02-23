@@ -38,3 +38,7 @@ for (let sp of spellbook) {
 window.onload = function () {
   document.getElementById('spells').innerHTML = Mustache.render(template, {spells: spellbook});
 }
+
+var closeHeader = function() {
+  document.getElementById('header').style.display = 'none';
+}
