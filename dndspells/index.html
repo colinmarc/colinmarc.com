@@ -168,52 +168,35 @@
     <div id="container">
       <h1>D&amp;D 5e Spellbook Generator</h1>
       <h2>Spellbook</h2>
-
-      <!-- <div id="presets" class="filtercat">
-        <b>Presets:</b><br/>
-
-        Druid:
-        <a class="filterbutton">0</a>
-        <a class="filterbutton">1</a>
-        <a class="filterbutton">2</a>
-        <a class="filterbutton">3</a>
-        <a class="filterbutton">4</a>
-        <a class="filterbutton">5</a>
-        <a class="filterbutton">6</a>
-        <a class="filterbutton">7</a>
-        <a class="filterbutton">8</a>
-        <a class="filterbutton">9</a><br/>
-
-        Cleric:
-        <a class="filterbutton">0</a>
-        <a class="filterbutton">1</a>
-        <a class="filterbutton">2</a>
-        <a class="filterbutton">3</a>
-        <a class="filterbutton">4</a>
-        <a class="filterbutton">5</a>
-        <a class="filterbutton">6</a>
-        <a class="filterbutton">7</a>
-        <a class="filterbutton">8</a>
-        <a class="filterbutton">9</a><br/>
-
-        Paladin:
-        <a class="filterbutton">0</a>
-        <a class="filterbutton">1</a>
-        <a class="filterbutton">2</a>
-        <a class="filterbutton">3</a>
-        <a class="filterbutton">4</a>
-        <a class="filterbutton">5</a>
-        <a class="filterbutton">6</a>
-        <a class="filterbutton">7</a>
-        <a class="filterbutton">8</a>
-        <a class="filterbutton">9</a>
-      </div> -->
       <div id="filters">
+      <div class="filtercat">
+        Load preset:
+        <select id="presetselect">
+        <option value="none" selected>Choose one</option>
+        </select>
+        Max level:
+        <select id="presetmaxlevel">
+          <option value="9" selected>9</option>
+          <option value="8">8</option>
+          <option value="7">7</option>
+          <option value="6">6</option>
+          <option value="5">5</option>
+          <option value="4">4</option>
+          <option value="3">3</option>
+          <option value="2">2</option>
+          <option value="1">1</option>
+        </select>
+        Load preset:
+        <select id="presetsource">
+          <option value="phb" selected>PHB Only</option>
+          <option value="all">All</option>
+        </select>
+      </div>
       <div class="filtercat">
         <a id="emptyspellbook" class="filterbutton">Empty Spellbook</a><br/>
       </div>
       <div class="filtercat">
-        <a id="generate" class="filterbutton" target="_blank">Generate! (opens in new window)</a><br/>
+        <a id="generate" class="filterbutton" target="_blank">Generate printable PDF! (opens in new window)</a><br/>
       </div>
       <table id="selectedtable">
         <thead>
