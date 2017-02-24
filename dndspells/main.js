@@ -4,6 +4,8 @@ var searchSpellTemplate = `
   <td class="namecol">{{name}}</td>
   <td class="classcol">{{class_desc}}</td>
   <td class="schoolcol">{{school}}</td>
+  <td class="ritualcol">{{#ritual}}yes{{/ritual}}{{^ritual}}no{{/ritual}}</td>
+  <td class="concentrationcol">{{#concentration}}yes{{/concentration}}{{^concentration}}no{{/concentration}}</td>
   <td class="componentcol">{{component_desc}}{{#material_cost}}*{{/material_cost}}</td>
   <td class="sourcecol">{{source}}</td>
 </tr>
