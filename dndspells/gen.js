@@ -42,3 +42,7 @@ window.onload = function () {
 var closeHeader = function() {
   document.getElementById('header').style.display = 'none';
 }
+
+var edit = function() {
+  window.location.pathname = window.location.pathname + '/..'
+}
