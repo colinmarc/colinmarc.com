@@ -180,7 +180,6 @@ $(document).ready(function() {
 
     selectedSpells.add(sp.id);
     selectedSpellsBitSet.set(sp.id, 1);
-    $generate.attr('href', 'gen.html?' + selectedSpellsBitSet.toString(16))
 
     $selectInstructions.hide();
   }
@@ -197,9 +196,17 @@ $(document).ready(function() {
     }).appendTo($selectedTableBody);
   }
 
+  var updateSelected = function() {
+    var ref = selectedSpellsBitSet.toString(16);
+
+    $generate.attr('href', 'gen.html?' + ref)
+    history.replaceState(history.state, document.title, window.location.pathname + '?' + ref);
+  }
+
   $searchTableBody.find('.spell').bind('click', function() {
     selectSpell($(this).data('sp'));
     sortSelected();
+    updateSelected();
     refilter();
   });
 
@@ -209,6 +216,7 @@ $(document).ready(function() {
       selectSpell(spells[id]));
 
     sortSelected();
+    updateSelected();
     refilter();
   }
 
@@ -222,7 +230,7 @@ $(document).ready(function() {
     refilter();
 
     selectedSpellsBitSet.set(sp.id, 0);
-    $generate.attr('href', 'gen.html?' + selectedSpellsBitSet.toString(16))
+    updateSelected();
 
     if (selectedSpells.size === 0)
       $selectInstructions.show();
@@ -264,6 +272,7 @@ $(document).ready(function() {
     }).forEach(selectSpell);
 
     sortSelected();
+    updateSelected();
     refilter();
 
     console.timeEnd('preset');
