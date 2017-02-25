@@ -203,6 +203,15 @@ $(document).ready(function() {
     refilter();
   });
 
+  // Load from querystring.
+  if (window.location.search !== "") {
+    new BitSet('0x' + window.location.search.substring(1)).toArray().map(id =>
+      selectSpell(spells[id]));
+
+    sortSelected();
+    refilter();
+  }
+
   // Deselecting spells.
   $selectedTableBody.on('click', '.spell', function() {
     var $this = $(this),
