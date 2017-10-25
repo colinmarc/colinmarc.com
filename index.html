@@ -63,13 +63,13 @@
       @media screen and (min-width: 920px) {
         #container {
           flex-direction: row;
-          border-bottom: .5em solid black;
           box-shadow: 0 .55em 5px -5px rgba(0, 0, 0, 0.2);
         }
 
         #me {
           width: 100%;
           max-width: none;
+          overflow-y: hidden;
         }
 
         #left {
@@ -85,6 +85,17 @@
           margin-top: 3em;
           margin-bottom: 0;
           text-align: inherit;
+        }
+
+        @media screen and (min-height: 540px) {
+          body, html {
+            height: 100%;
+            overflow-y: hidden;
+          }
+
+          #container {
+            border-bottom: .5em solid black;
+          }
         }
       }
 
