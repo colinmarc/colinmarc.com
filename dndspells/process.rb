@@ -162,4 +162,4 @@ end
 
 raw = JSON.load(File.open(ARGV[0]))
 $stderr.puts "processing #{raw.count} spells..."
-puts 'var spells = ' + JSON.dump(raw.map { |sp| process(sp) })
+puts JSON.dump(raw.map { |sp| process(sp) })
